@@ -1,14 +1,26 @@
 [
-  {
-    "phone": "7697460099",
-    "name": "Unknown Scammer"
-  },
-  {
-    "phone": "9340752151",
-    "name": "Fake Delivery Agent"
-  },
-  {
-    "phone": "9876543210",
-    "name": "Lottery Scammer"
-  }
+{
+"id": 1,
+"name": "Unknown Scammer",
+"phone": "7697460099",
+"location": "Unknown",
+"severity": "High",
+"verifiedBy": "Blogging Adda"
+},
+{
+"id": 2,
+"name": "Fake Delivery Agent",
+"phone": "9340752151",
+"location": "Chattisgarh",
+"severity": "Critical",
+"verifiedBy": "Blogging Adda"
+},
+{
+"id": 3,
+"name": "Lottery Scammer",
+"phone": "9876543210",
+"location": "Delhi NCR",
+"severity": "Medium",
+"verifiedBy": "Blogging Adda"
+}
 ]
