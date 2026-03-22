@@ -32,7 +32,9 @@
                     <span class="text-[10px] text-red-400 font-bold uppercase tracking-widest">Scammer List</span>
                 </div>
             </div>
-           
+            <button class="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-4 py-2 rounded-lg text-sm transition-all hidden sm:block">
+                Report Scammer
+            </button>
         </div>
     </nav>
 
@@ -88,16 +90,32 @@
             <!-- Group Join Button -->
             <div class="flex flex-col items-center gap-4">
                 <p class="text-slate-400 font-bold uppercase tracking-widest text-xs">Stay Updated</p>
-                <a href="https://chat.whatsapp.com/ITEcpvaPXLTL73vE5ASdVW" target="_blank" class="inline-flex items-center gap-3 bg-[#0088cc] hover:bg-[#0077b5] text-white px-8 py-4 rounded-2xl font-black text-lg transition-all shadow-xl shadow-blue-500/20 transform hover:-translate-y-1">
+                <a href="https://t.me/BloggingAdda" target="_blank" class="inline-flex items-center gap-3 bg-[#0088cc] hover:bg-[#0077b5] text-white px-8 py-4 rounded-2xl font-black text-lg transition-all shadow-xl shadow-blue-500/20 transform hover:-translate-y-1">
                     <i data-lucide="message-circle" class="w-6 h-6"></i>
                     Join Our Group Blogging Adda
                 </a>
             </div>
 
+            <!-- Disclaimer Note in English -->
+            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl text-left max-w-2xl mx-auto">
+                <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                    <strong class="text-red-500">Disclaimer:</strong> Disclaimer: If any phone number has been mistakenly included in this database, or if you have interacted with the individual and believe they are not involved in any scam, please contact us on WhatsApp right away to request a review.
+                </p>
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="https://wa.me/919340752151" target="_blank" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all shadow-lg shadow-emerald-500/10">
+                        <i data-lucide="phone" class="w-4 h-4"></i> Message on WhatsApp: 9340752151
+                    </a>
+                </div>
+                <p class="mt-4 text-[11px] text-slate-500 italic">
+                    While every effort is made to verify the numbers added to this database, the administration shall not be held liable for any inaccuracies, errors, or discrepancies.
+                </p>
+            </div>
+
             <div class="pt-8 border-t border-white/5">
-                <p class="text-red-500 font-bold mb-1">Admin: Deepak Devdaliya</p>
+                <p class="text-red-500 font-bold mb-1 uppercase tracking-wider text-xs">Platform Administrator</p>
+                <p class="text-white font-black text-lg mb-1">Deepak Devdaliya</p>
                 <p class="text-slate-400 text-sm font-bold flex items-center justify-center gap-2 mb-6">
-                    <i data-lucide="phone" class="w-3 h-3"></i> 7697460099
+                    <i data-lucide="phone" class="w-3 h-3"></i> +91 7697460099
                 </p>
                 <p class="text-slate-600 text-xs font-medium uppercase tracking-widest">
                     © 2026 Blogging Adda - Fighting Scams Together
@@ -109,9 +127,9 @@
     <script>
         // Database embedded directly for the preview to work
         const SCAMMER_DATABASE = [
-            { id: 1, name: "Unknown Scammer", phone: "7697460099", location: "Unknown", verifiedBy: "Blogging Adda" },
-            { id: 2, name: "Fake Delivery Agent", phone: "9340752151", location: "Chattisgarh", verifiedBy: "Blogging Adda" },
-            { id: 3, name: "Lottery Scammer", phone: "9876543210", location: "Delhi NCR", verifiedBy: "Blogging Adda" }
+            { id: 1, name: "Verified Scammer", phone: "7697460099", location: "India", verifiedBy: "Blogging Adda" },
+            { id: 2, name: "Fraud Agent", phone: "9340752151", location: "India", verifiedBy: "Blogging Adda" },
+            { id: 3, name: "Spam Caller", phone: "9876543210", location: "India", verifiedBy: "Blogging Adda" }
         ];
 
         const searchForm = document.getElementById('searchForm');
@@ -132,7 +150,7 @@
             resultsArea.innerHTML = `
                 <div class="text-center py-12">
                     <div class="inline-block w-8 h-8 border-4 border-red-600/20 border-t-red-600 rounded-full animate-spin mb-4"></div>
-                    <p class="text-slate-500 font-medium">Scanning Database...</p>
+                    <p class="text-slate-500 font-medium">Scanning Verified Database...</p>
                 </div>
             `;
 
@@ -157,7 +175,7 @@
                             <i data-lucide="skull" class="w-24 h-24"></i>
                         </div>
                         <div class="flex items-center gap-3 mb-6">
-                            <span class="bg-black/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/20">Warning Found</span>
+                            <span class="bg-black/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/20">Critical Warning</span>
                         </div>
                         <h3 class="text-2xl md:text-3xl font-black mb-2">Number Found: Scammer</h3>
                         <div class="flex items-center gap-2 text-red-100 font-bold bg-white/10 w-fit px-4 py-2 rounded-xl border border-white/20">
@@ -179,13 +197,8 @@
                         <div class="bg-red-50 border border-red-100 p-6 rounded-2xl flex items-center gap-4">
                             <div class="bg-red-100 p-3 rounded-full"><i data-lucide="skull" class="text-red-600 w-6 h-6"></i></div>
                             <div>
-                                <p class="text-red-900 text-lg font-black leading-tight uppercase">Scammer Verified</p>
-                                <p class="text-red-700 text-xs font-bold uppercase tracking-wider">By Blogging Adda Community</p>
-                            </div>
-                        </div>
-                        <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
-                            <div class="flex items-center gap-2 text-slate-400 text-xs italic font-medium">
-                                <i data-lucide="info" class="w-3 h-3"></i> Data by Blogging Adda
+                                <p class="text-red-900 text-lg font-black leading-tight uppercase">Scammer Profile Found</p>
+                                <p class="text-red-700 text-xs font-bold uppercase tracking-wider">Verified by Community</p>
                             </div>
                         </div>
                     </div>
