@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scammer Checker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#0f172a] text-white font-sans">
+
+<!-- Top Banner -->
+<div class="bg-red-600 text-center py-2 text-xs font-bold">
+⚠️ Warning: Database of Verified Scammers in India ⚠️
+</div>
+
+<!-- Navbar -->
+<div class="p-4 border-b border-white/10 flex justify-between items-center">
+  <h1 class="text-xl font-bold">Blogging Adda</h1>
+  <button class="bg-white/10 px-4 py-2 rounded">Report</button>
+</div>
+
+<!-- Main -->
+<div class="text-center mt-20 px-4">
+
+<h2 class="text-4xl font-bold mb-6">
+Check if a Number is <span class="text-red-500">Scammer</span>
+</h2>
+
+<input id="number" placeholder="Enter number"
+class="p-4 w-80 rounded-xl bg-[#1e293b]">
+
+<br><br>
+
+<button onclick="searchNumber()"
+class="bg-red-600 px-6 py-3 rounded-xl">
+Verify
+</button>
+
+<div id="result" class="mt-10"></div>
+
+</div>
+
+<script>
+async function searchNumber(){
+ let num = document.getElementById("number").value;
+
+ num = num.replace(/\D/g,'');
+ if(num.length > 10){
+   num = num.slice(-10);
+ }
+
+ const res = await fetch('numbers.json');
+ const data = await res.json();
+
+ let found = data.find(i => i.phone === num);
+
+ let div = document.getElementById("result");
+
+ if(found){
+   div.innerHTML = `
+   <div class="bg-red-600 p-6 rounded-xl">
+     <h2 class="text-2xl font-bold">Scammer Found</h2>
+     <p class="mt-2">Number: ${found.phone}</p>
+     <p>Name: ${found.name}</p>
+   </div>`;
+ }else{
+   div.innerHTML = `
+   <div class="bg-green-600 p-6 rounded-xl">
+     <h2 class="text-2xl font-bold">Safe Number</h2>
+   </div>`;
+ }
+}
+</script>
+
+</body>
+</html>
