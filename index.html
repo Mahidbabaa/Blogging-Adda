@@ -60,7 +60,7 @@
                     <input
                         id="searchInput"
                         type="tel"
-                        placeholder="Enter number here (e.g. 99XXXXXXXX)"
+                        placeholder="Enter number here (e.g. 7417894650)"
                         class="w-full py-6 px-4 bg-transparent outline-none text-xl font-medium text-white placeholder:text-slate-600"
                         required
                     />
@@ -99,7 +99,7 @@
             <!-- Disclaimer Note in English -->
             <div class="bg-white/5 border border-white/10 p-6 rounded-2xl text-left max-w-2xl mx-auto">
                 <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                    <strong class="text-red-500">Disclaimer:</strong> Disclaimer: If any phone number has been mistakenly included in this database, or if you have interacted with the individual and believe they are not involved in any scam, please contact us on WhatsApp right away to request a review.
+                    <strong class="text-red-500">Disclaimer:</strong> If a phone number has been added to this database by mistake, or if you have dealt with the person and believe they are not a scammer, please notify us immediately via WhatsApp to request a review.
                 </p>
                 <div class="flex flex-wrap items-center gap-4">
                     <a href="https://wa.me/919340752151" target="_blank" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all shadow-lg shadow-emerald-500/10">
@@ -125,11 +125,51 @@
     </footer>
 
     <script>
-        // Database embedded directly for the preview to work
+        // CLEAN DATABASE: ONLY the provided list of scammers
         const SCAMMER_DATABASE = [
-            { id: 1, name: "Verified Scammer", phone: "7697460099", location: "India", verifiedBy: "Blogging Adda" },
-            { id: 2, name: "Fraud Agent", phone: "9340752151", location: "India", verifiedBy: "Blogging Adda" },
-            { id: 3, name: "Spam Caller", phone: "9876543210", location: "India", verifiedBy: "Blogging Adda" }
+            { id: 1, phone: "7417894650", verifiedBy: "Blogging Adda" },
+            { id: 2, phone: "7248231829", verifiedBy: "Blogging Adda" },
+            { id: 3, phone: "8755890269", verifiedBy: "Blogging Adda" },
+            { id: 4, phone: "8819068690", verifiedBy: "Blogging Adda" },
+            { id: 5, phone: "8709766938", verifiedBy: "Blogging Adda" },
+            { id: 6, phone: "8377999663", verifiedBy: "Blogging Adda" },
+            { id: 7, phone: "6394744056", verifiedBy: "Blogging Adda" },
+            { id: 8, phone: "7070845982", verifiedBy: "Blogging Adda" },
+            { id: 9, phone: "9634482732", verifiedBy: "Blogging Adda" },
+            { id: 10, phone: "9998610623", verifiedBy: "Blogging Adda" },
+            { id: 11, phone: "9259000432", verifiedBy: "Blogging Adda" },
+            { id: 12, phone: "8369382510", verifiedBy: "Blogging Adda" },
+            { id: 13, phone: "7014667492", verifiedBy: "Blogging Adda" },
+            { id: 14, phone: "8328070060", verifiedBy: "Blogging Adda" },
+            { id: 15, phone: "9451669058", verifiedBy: "Blogging Adda" },
+            { id: 16, phone: "9168256535", verifiedBy: "Blogging Adda" },
+            { id: 17, phone: "9065886550", verifiedBy: "Blogging Adda" },
+            { id: 18, phone: "9634938420", verifiedBy: "Blogging Adda" },
+            { id: 19, phone: "7020680060", verifiedBy: "Blogging Adda" },
+            { id: 20, phone: "8527703656", verifiedBy: "Blogging Adda" },
+            { id: 21, phone: "9624849016", verifiedBy: "Blogging Adda" },
+            { id: 22, phone: "8544826458", verifiedBy: "Blogging Adda" },
+            { id: 23, phone: "7454827261", verifiedBy: "Blogging Adda" },
+            { id: 24, phone: "9754787058", verifiedBy: "Blogging Adda" },
+            { id: 25, phone: "8084327282", verifiedBy: "Blogging Adda" },
+            { id: 26, phone: "9661818301", verifiedBy: "Blogging Adda" },
+            { id: 27, phone: "8445335710", verifiedBy: "Blogging Adda" },
+            { id: 28, phone: "7808597270", verifiedBy: "Blogging Adda" },
+            { id: 29, phone: "8053715129", verifiedBy: "Blogging Adda" },
+            { id: 30, phone: "8708561942", verifiedBy: "Blogging Adda" },
+            { id: 31, phone: "7977590199", verifiedBy: "Blogging Adda" },
+            { id: 32, phone: "9997721128", verifiedBy: "Blogging Adda" },
+            { id: 33, phone: "9587867894", verifiedBy: "Blogging Adda" },
+            { id: 34, phone: "7815863469", verifiedBy: "Blogging Adda" },
+            { id: 35, phone: "6399098651", verifiedBy: "Blogging Adda" },
+            { id: 36, phone: "9997254507", verifiedBy: "Blogging Adda" },
+            { id: 37, phone: "9997961179", verifiedBy: "Blogging Adda" },
+            { id: 38, phone: "8966997191", verifiedBy: "Blogging Adda" },
+            { id: 39, phone: "8959119952", verifiedBy: "Blogging Adda" },
+            { id: 40, phone: "7500042239", verifiedBy: "Blogging Adda" },
+            { id: 41, phone: "6202714368", verifiedBy: "Blogging Adda" },
+            { id: 42, phone: "6395449224", verifiedBy: "Blogging Adda" },
+            { id: 43, phone: "8534903179", verifiedBy: "Blogging Adda" }
         ];
 
         const searchForm = document.getElementById('searchForm');
@@ -146,20 +186,21 @@
             const query = searchInput.value.trim();
             if (!query) return;
 
-            // Loading state
+            // Loading UI
             resultsArea.innerHTML = `
                 <div class="text-center py-12">
                     <div class="inline-block w-8 h-8 border-4 border-red-600/20 border-t-red-600 rounded-full animate-spin mb-4"></div>
-                    <p class="text-slate-500 font-medium">Scanning Verified Database...</p>
+                    <p class="text-slate-500 font-medium italic">Scanning Protected Database...</p>
                 </div>
             `;
 
             setTimeout(() => {
                 const cleanSearch = normalizeNumber(query);
+                // Check in our database
                 const found = SCAMMER_DATABASE.find(item => normalizeNumber(item.phone) === cleanSearch);
 
                 if (found) {
-                    renderScammer(found);
+                    renderScammer(cleanSearch);
                 } else {
                     renderSafe(query);
                 }
@@ -167,7 +208,7 @@
             }, 600);
         });
 
-        function renderScammer(data) {
+        function renderScammer(phone) {
             resultsArea.innerHTML = `
                 <div class="bg-white rounded-[2rem] overflow-hidden shadow-2xl shadow-red-900/40 animate-zoom">
                     <div class="bg-red-600 p-8 text-white relative border-b-8 border-red-800">
@@ -177,28 +218,22 @@
                         <div class="flex items-center gap-3 mb-6">
                             <span class="bg-black/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/20">Critical Warning</span>
                         </div>
-                        <h3 class="text-2xl md:text-3xl font-black mb-2">Number Found: Scammer</h3>
+                        <h3 class="text-2xl md:text-3xl font-black mb-2 tracking-tight">Number Found: Scammer</h3>
                         <div class="flex items-center gap-2 text-red-100 font-bold bg-white/10 w-fit px-4 py-2 rounded-xl border border-white/20">
                             <i data-lucide="check-circle-2" class="w-5 h-5"></i> 
                             Verified by Blogging Adda
                         </div>
                     </div>
                     <div class="p-8 space-y-6 text-slate-800">
-                        <div class="grid grid-cols-2 gap-6">
-                            <div>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Status</p>
-                                <p class="font-bold text-lg text-red-600 flex items-center gap-1"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Scam Confirmed</p>
-                            </div>
-                            <div>
-                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Reported Number</p>
-                                <p class="font-bold text-lg">${data.phone}</p>
-                            </div>
+                        <div class="text-center space-y-1">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Reported Scammer Number</p>
+                            <p class="font-black text-3xl text-red-600 tracking-tighter">${phone}</p>
                         </div>
-                        <div class="bg-red-50 border border-red-100 p-6 rounded-2xl flex items-center gap-4">
+                        <div class="bg-red-50 border border-red-100 p-6 rounded-2xl flex items-center justify-center gap-4">
                             <div class="bg-red-100 p-3 rounded-full"><i data-lucide="skull" class="text-red-600 w-6 h-6"></i></div>
-                            <div>
+                            <div class="text-left">
                                 <p class="text-red-900 text-lg font-black leading-tight uppercase">Scammer Profile Found</p>
-                                <p class="text-red-700 text-xs font-bold uppercase tracking-wider">Verified by Community</p>
+                                <p class="text-red-700 text-xs font-bold uppercase tracking-wider">Verified by Blogging Adda Community</p>
                             </div>
                         </div>
                     </div>
@@ -212,7 +247,7 @@
                     <div class="bg-emerald-500 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-8 rotate-3 shadow-lg shadow-emerald-500/20">
                         <i data-lucide="check-circle-2" class="text-white w-10 h-10"></i>
                     </div>
-                    <h3 class="text-emerald-400 font-black text-2xl mb-3">Number not found in our data base</h3>
+                    <h3 class="text-emerald-400 font-black text-2xl mb-3 tracking-tight">Number not found in our data base</h3>
                     <p class="text-slate-400 mb-8 max-w-xs mx-auto text-sm leading-relaxed">
                         No scam reports have been found against this number yet. Please stay safe and remain cautious.
                     </p>
@@ -229,7 +264,6 @@
             searchInput.focus();
         };
 
-        // Initialize icons
         lucide.createIcons();
     </script>
 </body>
