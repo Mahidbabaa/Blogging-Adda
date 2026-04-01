@@ -8,33 +8,38 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .animate-zoom { animation: zoomIn 0.3s ease-out; }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         
         .scrolling-text {
             display: inline-block;
             white-space: nowrap;
-            animation: scroll 20s linear infinite;
+            animation: scroll 25s linear infinite;
         }
         @keyframes scroll {
             from { transform: translateX(100%); }
             to { transform: translateX(-100%); }
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px border rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 <body class="bg-[#0f172a] text-slate-100 min-h-screen">
 
     <!-- Top Banner -->
-    <div class="bg-red-600 text-white py-2 text-center text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] overflow-hidden relative">
+    <div class="bg-red-600 text-white py-2 text-center text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] overflow-hidden relative z-[60]">
         <div class="scrolling-text">
             ⚠️ WARNING: DATABASE OF VERIFIED SCAMMERS IN INDIA • NEW NUMBERS ADDED DAILY • BEWARE OF KYC AND JOB FRAUDS • REPORT SUSPICIOUS NUMBERS ON WHATSAPP ⚠️
         </div>
     </div>
 
     <!-- Navbar -->
-    <nav class="bg-[#1e293b]/50 backdrop-blur-md border-b border-white/10 py-4 px-6 sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto flex items-center justify-between">
+    <nav class="bg-[#1e293b]/80 backdrop-blur-md border-b border-white/10 py-4 px-6 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="bg-red-500 p-2 rounded-lg shadow-lg shadow-red-500/20">
                     <i data-lucide="shield-alert" class="text-white w-6 h-6"></i>
@@ -44,108 +49,143 @@
                     <span class="text-[10px] text-red-400 font-bold uppercase tracking-widest">Scammer List</span>
                 </div>
             </div>
-            <div class="hidden md:flex gap-4">
+            <div class="flex items-center gap-4">
                 <div class="bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg flex items-center gap-2">
                     <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-                    <span class="text-xs font-bold text-slate-300">52 Verified Scammers</span>
+                    <span id="liveCounter" class="text-xs font-bold text-slate-300 tracking-tight">Loading Database...</span>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-4xl mx-auto px-4 py-16">
-        <!-- Header -->
+    <main class="max-w-5xl mx-auto px-4 py-12 md:py-16">
+        <!-- Hero Section -->
         <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
+            <h2 class="text-4xl md:text-6xl font-black text-white mb-6 leading-tight tracking-tighter">
                 Check if a Number is <br />
                 <span class="text-red-500 underline decoration-red-500/30 underline-offset-8">A Known Scammer</span>
             </h2>
-            <p class="text-slate-400 max-w-xl mx-auto">
-                Protect yourself from fraud. Search any suspicious number below to check its history in our community database.
+            <p class="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                Protect yourself and your family from financial fraud. Our database is curated by the Blogging Adda community to blacklist verified scammers.
             </p>
         </div>
 
         <!-- Search Bar -->
         <div class="max-w-2xl mx-auto mb-16">
-            <form id="searchForm" class="relative">
+            <form id="searchForm" class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-orange-600 rounded-3xl blur opacity-10 group-focus-within:opacity-30 transition duration-1000"></div>
                 <div class="relative flex items-center bg-[#1e293b] rounded-2xl shadow-2xl overflow-hidden border border-white/10 focus-within:border-red-500/50 transition-all">
                     <div class="pl-6 text-slate-500">
-                        <i data-lucide="search" class="w-6 h-6"></i>
+                        <i data-lucide="search" class="w-7 h-7"></i>
                     </div>
                     <input
                         id="searchInput"
                         type="tel"
-                        placeholder="Enter number here (e.g. 7417894650)"
-                        class="w-full py-6 px-4 bg-transparent outline-none text-xl font-medium text-white placeholder:text-slate-600"
+                        placeholder="Enter 10-digit number here..."
+                        class="w-full py-6 px-5 bg-transparent outline-none text-xl font-medium text-white placeholder:text-slate-600"
                         required
                     />
                     <button
                         type="submit"
-                        class="mr-3 bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg shadow-red-600/20 active:scale-95"
+                        class="mr-3 bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg shadow-red-600/30 active:scale-95"
                     >
                         Verify
                     </button>
                 </div>
             </form>
-            <div class="flex flex-wrap justify-center gap-6 mt-6">
-                <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
-                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> 100% Verified Data
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <div class="flex items-center gap-2 text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Verified Records
                 </div>
-                <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
-                    <i data-lucide="shield-check" class="w-4 h-4 text-blue-500"></i> Community Protection
+                <div class="flex items-center gap-2 text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-blue-500"></i> Safe & Anonymous
                 </div>
-                <div class="flex items-center gap-2 text-xs text-slate-500 font-medium">
-                    <i data-lucide="refresh-cw" class="w-4 h-4 text-indigo-500"></i> Updated Hourly
+                <div class="flex items-center gap-2 text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
+                    <i data-lucide="clock" class="w-4 h-4 text-orange-500"></i> Live Updates
                 </div>
             </div>
         </div>
 
         <!-- Results Area -->
-        <div id="resultsArea" class="max-w-xl mx-auto min-h-[100px]">
+        <div id="resultsArea" class="max-w-xl mx-auto mb-20 scroll-mt-24">
             <!-- Results injected by JS -->
         </div>
+
+        <!-- Safety Tips Section -->
+        <section class="mb-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-px bg-white/10 flex-grow"></div>
+                <h3 class="text-xl font-black uppercase tracking-widest text-slate-500">Safety Tips</h3>
+                <div class="h-px bg-white/10 flex-grow"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card p-8 rounded-3xl border border-white/5 hover:border-red-500/30 transition-all group">
+                    <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-500 group-hover:text-white transition-all">
+                        <i data-lucide="lock" class="w-7 h-7 text-red-500 group-hover:text-white"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 text-white">Never Share OTP</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Legitimate banks or services will never ask for your One-Time Password over a phone call.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl border border-white/5 hover:border-blue-500/30 transition-all group">
+                    <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                        <i data-lucide="mouse-pointer-click" class="w-7 h-7 text-blue-500 group-hover:text-white"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 text-white">Avoid Random Links</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Don't click on SMS or WhatsApp links asking to update KYC or claiming you won a lottery.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl border border-white/5 hover:border-emerald-500/30 transition-all group">
+                    <div class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                        <i data-lucide="qr-code" class="w-7 h-7 text-emerald-500 group-hover:text-white"></i>
+                    </div>
+                    <h4 class="text-lg font-bold mb-3 text-white">QR Code Trap</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Scanning a QR code is for SENDING money, not receiving it. Never scan for receiving payments.</p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-white/5 mt-20">
-        <div class="max-w-4xl mx-auto px-6 text-center space-y-8">
+    <footer class="py-20 border-t border-white/5 bg-[#0a0f1d]">
+        <div class="max-w-5xl mx-auto px-6 text-center space-y-12">
             
-            <!-- Group Join Button -->
             <div class="flex flex-col items-center gap-4">
-                <p class="text-slate-400 font-bold uppercase tracking-widest text-xs">Stay Updated</p>
-                <a href="https://chat.whatsapp.com/ITEcpvaPXLTL73vE5ASdVW" target="_blank" class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#1fb355] text-white px-8 py-4 rounded-2xl font-black text-lg transition-all shadow-xl shadow-emerald-500/10 transform hover:-translate-y-1">
-                    <i data-lucide="message-circle" class="w-6 h-6"></i>
+                <p class="text-slate-500 font-black uppercase tracking-[0.3em] text-xs">Community Network</p>
+                <a href="https://chat.whatsapp.com/ITEcpvaPXLTL73vE5ASdVW" target="_blank" class="inline-flex items-center gap-4 bg-[#25D366] hover:bg-[#22c35e] text-white px-10 py-5 rounded-3xl font-black text-xl transition-all shadow-2xl shadow-emerald-500/20 transform hover:-translate-y-1 active:scale-95">
+                    <i data-lucide="message-circle" class="w-8 h-8"></i>
                     Join Our Group Blogging Adda
                 </a>
             </div>
 
-            <!-- Disclaimer Note -->
-            <div class="bg-white/5 border border-white/10 p-6 rounded-2xl text-left max-w-2xl mx-auto">
-                <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                    <strong class="text-red-500">Disclaimer:</strong> If a phone number has been mistakenly included in this database, or if you believe someone is not a scammer, please contact us on WhatsApp promptly to request a review.
-                </p>
-                <div class="flex flex-wrap items-center gap-4">
-                    <a href="https://wa.me/919340752151" target="_blank" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all shadow-lg shadow-emerald-500/10">
-                        <i data-lucide="phone" class="w-4 h-4"></i> Message on WhatsApp: 9340752151
-                    </a>
+            <div class="max-w-2xl mx-auto bg-white/5 border border-white/10 p-8 rounded-[2rem] text-left">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="bg-red-500/20 p-2 rounded-lg">
+                        <i data-lucide="info" class="w-5 h-5 text-red-500"></i>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        <strong class="text-red-500 font-black uppercase tracking-wider">Disclaimer:</strong> If a phone number has been mistakenly included in this database, or if you believe someone is not a scammer, please contact us on WhatsApp promptly to request a review.
+                    </p>
                 </div>
-                <p class="mt-4 text-[11px] text-slate-500 italic">
-                    While numbers are verified, the administration is not liable for errors or discrepancies.
+                <a href="https://wa.me/919340752151" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-400 px-5 py-3 rounded-xl text-sm font-bold transition-all border border-emerald-500/20">
+                    <i data-lucide="message-square" class="w-4 h-4"></i> WhatsApp Support: 9340752151
+                </a>
+                <p class="mt-6 text-[10px] text-slate-500 italic leading-relaxed uppercase tracking-widest font-bold">
+                    While numbers are verified by the community, the administration shall not be held liable for any inaccuracies, errors, or discrepancies in the database.
                 </p>
             </div>
 
-            <div class="pt-8 border-t border-white/5">
-                <p class="text-red-500 font-bold mb-1 uppercase tracking-wider text-[10px]">Platform Administrator</p>
-                <p class="text-white font-black text-lg mb-1">Deepak Devdaliya</p>
-                <p class="text-slate-400 text-sm font-bold flex items-center justify-center gap-2 mb-6">
-                    <i data-lucide="phone" class="w-3 h-3"></i> +91 7697460099
-                </p>
-                <div class="flex justify-center gap-4 text-slate-600 text-[10px] font-bold uppercase tracking-[0.2em]">
-                    <span>Blogging Adda Community</span>
-                    <span>•</span>
-                    <span>Fighting Scams Together</span>
-                    <span>•</span>
-                    <span>© 2026</span>
+            <div class="pt-10 border-t border-white/5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center text-left md:text-center">
+                    <div class="md:text-left">
+                        <p class="text-red-500 font-bold mb-1 uppercase tracking-wider text-[10px]">Platform Administrator</p>
+                        <p class="text-white font-black text-2xl tracking-tighter">Deepak Devdaliya</p>
+                        <p class="text-slate-500 font-bold flex items-center gap-2 mt-1">
+                            <i data-lucide="phone" class="w-3 h-3"></i> +91 7697460099
+                        </p>
+                    </div>
+                    <div class="md:text-right">
+                        <p class="text-slate-600 text-xs font-bold uppercase tracking-[0.4em] mb-2">Blogging Adda Portal</p>
+                        <p class="text-slate-400 text-xs font-medium uppercase tracking-[0.1em]">Fighting Scams Since 2026</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -177,6 +217,9 @@
             { phone: "9904926745" }
         ];
 
+        // Update Live Counter on Load
+        document.getElementById('liveCounter').textContent = `${SCAMMER_DATABASE.length} Verified Scammers`;
+
         const searchForm = document.getElementById('searchForm');
         const searchInput = document.getElementById('searchInput');
         const resultsArea = document.getElementById('resultsArea');
@@ -194,7 +237,7 @@
             resultsArea.innerHTML = `
                 <div class="text-center py-12">
                     <div class="inline-block w-8 h-8 border-4 border-red-600/20 border-t-red-600 rounded-full animate-spin mb-4"></div>
-                    <p class="text-slate-500 font-medium italic">Analyzing Number History...</p>
+                    <p class="text-slate-500 font-medium italic">Analyzing Database Records...</p>
                 </div>
             `;
 
@@ -211,13 +254,14 @@
                     renderSafe(query);
                 }
                 lucide.createIcons();
+                resultsArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 600);
         });
 
         function renderAdmin(phone) {
             resultsArea.innerHTML = `
                 <div class="bg-white rounded-[2rem] overflow-hidden shadow-2xl shadow-indigo-900/40 animate-zoom">
-                    <div class="bg-gradient-to-r from-indigo-600 to-blue-700 p-8 text-white relative border-b-8 border-indigo-800 text-center">
+                    <div class="bg-gradient-to-r from-indigo-600 to-blue-700 p-10 text-white relative border-b-8 border-indigo-800 text-center">
                         <div class="absolute top-0 right-0 p-8 opacity-10">
                             <i data-lucide="shield-check" class="w-24 h-24"></i>
                         </div>
@@ -225,16 +269,16 @@
                             <span class="bg-white/20 px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] border border-white/20">Authorized Identity</span>
                         </div>
                         <h3 class="text-3xl font-black mb-2">Deepak Devdaliya</h3>
-                        <p class="text-indigo-100 font-bold flex items-center justify-center gap-2 text-xl">
+                        <p class="text-indigo-100 font-bold flex items-center justify-center gap-2 text-xl tracking-tight">
                             <i data-lucide="user-check" class="w-6 h-6"></i> Platform Administrator
                         </p>
                     </div>
                     <div class="p-8 text-slate-800 text-center bg-slate-50">
-                        <p class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Verified Admin Number</p>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Verified Admin Number</p>
                         <p class="font-black text-3xl text-indigo-600 tracking-tighter mb-6">${phone}</p>
-                        <div class="bg-indigo-600 text-white p-4 rounded-2xl flex items-center justify-center gap-3">
-                            <i data-lucide="shield-alert" class="w-5 h-5"></i>
-                            <span class="font-bold">Authorized Blogging Adda Official</span>
+                        <div class="bg-indigo-600 text-white p-4 rounded-2xl flex items-center justify-center gap-3 shadow-lg shadow-indigo-500/20">
+                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            <span class="font-bold uppercase tracking-wider text-xs">Official Blogging Adda Executive</span>
                         </div>
                     </div>
                 </div>
@@ -242,12 +286,11 @@
         }
 
         function renderScammer(phone) {
-            // Updated share text to strictly follow user request: Alert + Number + Verified Scammer status
             const shareText = encodeURIComponent(`SCAMMER ALERT! \n\nThe number ${phone} is a VERIFIED SCAMMER in the Blogging Adda database.`);
             
             resultsArea.innerHTML = `
                 <div class="bg-white rounded-[2rem] overflow-hidden shadow-2xl shadow-red-900/40 animate-zoom">
-                    <div class="bg-red-600 p-8 text-white relative border-b-8 border-red-800 text-center">
+                    <div class="bg-red-600 p-10 text-white relative border-b-8 border-red-800 text-center">
                         <div class="absolute top-0 right-0 p-8 opacity-10">
                             <i data-lucide="skull" class="w-24 h-24"></i>
                         </div>
@@ -268,13 +311,13 @@
                         <div class="bg-red-50 border border-red-100 p-6 rounded-2xl flex items-center justify-center gap-4">
                             <div class="bg-red-100 p-3 rounded-full"><i data-lucide="skull" class="text-red-600 w-6 h-6"></i></div>
                             <div class="text-left">
-                                <p class="text-red-900 text-lg font-black leading-tight uppercase">Confirmed Fraudulent</p>
-                                <p class="text-red-700 text-xs font-bold uppercase tracking-wider">Do not engage or share OTP/Money</p>
+                                <p class="text-red-900 text-lg font-black leading-tight uppercase tracking-tight">Confirmed Fraudulent</p>
+                                <p class="text-red-700 text-xs font-bold uppercase tracking-wider">Do not engage or share any info</p>
                             </div>
                         </div>
                         
-                        <a href="https://wa.me/?text=${shareText}" target="_blank" class="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1fb355] text-white py-4 rounded-2xl font-black transition-all shadow-lg shadow-emerald-500/20 active:scale-95">
-                            <i data-lucide="share-2" class="w-5 h-5"></i>
+                        <a href="https://wa.me/?text=${shareText}" target="_blank" class="w-full inline-flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1fb355] text-white py-5 rounded-2xl font-black transition-all shadow-xl shadow-emerald-500/20 active:scale-95">
+                            <i data-lucide="share-2" class="w-6 h-6"></i>
                             Share Scam Alert on WhatsApp
                         </a>
                     </div>
@@ -284,19 +327,17 @@
 
         function renderSafe(phone) {
             resultsArea.innerHTML = `
-                <div class="bg-emerald-950/20 rounded-[2rem] border-2 border-emerald-500/30 p-12 text-center shadow-2xl animate-zoom">
-                    <div class="bg-emerald-500 w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-lg shadow-emerald-500/20">
-                        <i data-lucide="check-circle-2" class="text-white w-10 h-10"></i>
+                <div class="bg-emerald-950/20 rounded-[2rem] border-2 border-emerald-500/30 p-12 text-center shadow-2xl shadow-emerald-500/5 animate-zoom">
+                    <div class="bg-emerald-500 w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-xl shadow-emerald-500/30 rotate-3">
+                        <i data-lucide="check-circle-2" class="text-white w-12 h-12"></i>
                     </div>
-                    <h3 class="text-emerald-400 font-black text-2xl mb-3 tracking-tight">Number not found in our data base</h3>
-                    <p class="text-slate-400 mb-8 max-w-xs mx-auto text-sm leading-relaxed">
-                        The number <span class="text-white font-bold">${phone}</span> is not reported as a scammer yet. However, always be cautious with unknown callers.
+                    <h3 class="text-emerald-400 font-black text-3xl mb-4 tracking-tight">Number not found in our data base</h3>
+                    <p class="text-slate-400 mb-10 max-w-xs mx-auto text-sm leading-relaxed font-medium">
+                        The number <span class="text-white font-bold tracking-tight">${phone}</span> is not currently reported as a scammer. However, we advise you to remain cautious.
                     </p>
-                    <div class="flex flex-col gap-3">
-                        <button onclick="resetSearch()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-10 py-3.5 rounded-2xl font-black transition-all shadow-lg shadow-emerald-500/20 active:scale-95">
-                            Search Another
-                        </button>
-                    </div>
+                    <button onclick="resetSearch()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-12 py-4 rounded-2xl font-black transition-all border-b-4 border-emerald-700 shadow-xl shadow-emerald-500/20 active:border-b-0 active:translate-y-1">
+                        Search Another Number
+                    </button>
                 </div>
             `;
         }
